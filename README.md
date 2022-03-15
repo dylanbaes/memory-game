@@ -60,12 +60,12 @@ Because I am a huge fan of video games, difficult and competitive ones at that, 
 
 ## Interview Recording URL Link
 
-[My 5-minute Interview Recording](your-link-here)
+[My 5-minute Interview Recording]: https://www.loom.com/share/baf6fb66b19a4b53a872cbe6fc8bad2f
 
 
 ## License
 
-    Copyright [YOUR NAME]
+    Copyright Karl Dylan Baes
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
