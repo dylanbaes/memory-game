@@ -17,6 +17,7 @@ function startGame() {
   document.getElementById("startBtn").classList.add("hidden");
   document.getElementById("stopBtn").classList.remove("hidden");
   makePattern(newPattern);
+  mistakeCounter = 0;
   playClueSequence();
 }
 
@@ -53,7 +54,6 @@ function playSingleClue(btn){
 
 function playClueSequence(){
   guessCounter = 0;
-  
   context.resume()
   let delay = nextClueWaitTime; //set delay to initial wait time
   for(let i=0;i<=progress;i++){ // for each clue that is revealed so far
@@ -106,11 +106,11 @@ function guess(btn){
 
 // Sound Synthesis Functions
 const freqMap = {
-  1: 262,
-  2: 330,
-  3: 349,
-  4: 392,
-  5: 523
+  1: 311,
+  2: 349,
+  3: 392,
+  4: 466,
+  5: 622
 }
 function playTone(btn,len){ 
   o.frequency.value = freqMap[btn]
