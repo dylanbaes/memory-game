@@ -1,19 +1,22 @@
-const clueHoldTime = 1000;
+var clueHoldTime = 500;
 const cluePauseTime = 333;
-const nextClueWaitTime = 1000;
-var pattern = [2, 2, 4, 3, 2, 1, 2, 4];
+var nextClueWaitTime = 500;
+const numButtons = 4;
+// var pattern = [2, 2, 4, 3, 2, 1, 2, 4]; hardcoded pattern
+var newPattern = [];
 var progress = 0; 
 var gamePlaying = false;
 var tonePlaying = false;
 var volume = 0.5;
 var guessCounter = 0;
-
+var mistakeCounter = 0;
 
 function startGame() {
   progress = 0;
   gamePlaying = true;
   document.getElementById("startBtn").classList.add("hidden");
   document.getElementById("stopBtn").classList.remove("hidden");
+  makePattern(newPattern);
   playClueSequence();
 }
 
@@ -33,6 +36,13 @@ function winGame(){
   alert("Game Over. You win.");
 }
 
+function makePattern(){
+  for (var i = 0; i < 8; i++) {
+    newPattern[i] = Math.floor(Math.random() * 5) + 1;
+  }
+  console.log(newPattern);
+}
+
 function playSingleClue(btn){
   if(gamePlaying){
     lightButton(btn);
@@ -43,13 +53,20 @@ function playSingleClue(btn){
 
 function playClueSequence(){
   guessCounter = 0;
+  
   context.resume()
   let delay = nextClueWaitTime; //set delay to initial wait time
   for(let i=0;i<=progress;i++){ // for each clue that is revealed so far
-    console.log("play single clue: " + pattern[i] + " in " + delay + "ms")
-    setTimeout(playSingleClue,delay,pattern[i]) // set a timeout to play that clue
+    console.log("play single clue: " + newPattern[i] + " in " + delay + "ms")
+    setTimeout(playSingleClue,delay,newPattern[i]) // set a timeout to play that clue
     delay += clueHoldTime 
     delay += cluePauseTime;
+    if (clueHoldTime > 200) {
+      clueHoldTime -= 25;
+    }
+    if (nextClueWaitTime > 150) {
+      nextClueWaitTime -=  20;
+    }
   }
 }
 
@@ -66,9 +83,9 @@ function guess(btn){
     return;
   }
   
-  if(pattern[guessCounter] == btn){
+  if(newPattern[guessCounter] == btn){
     if(guessCounter == progress){
-      if(progress == pattern.length - 1){
+      if(progress == newPattern.length - 1){
         winGame();
       }else{
         progress++;
@@ -78,16 +95,22 @@ function guess(btn){
       guessCounter++;
     }
   }else{
-    loseGame();
+    if (mistakeCounter < 2) {
+      mistakeCounter++;
+      alert("Strike " + mistakeCounter + ", try again!");
+    } else {
+      loseGame();
+    }
   }
 }
 
 // Sound Synthesis Functions
 const freqMap = {
-  1: 261.6,
-  2: 329.6,
-  3: 392,
-  4: 466.2
+  1: 262,
+  2: 330,
+  3: 349,
+  4: 392,
+  5: 523
 }
 function playTone(btn,len){ 
   o.frequency.value = freqMap[btn]
