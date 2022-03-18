@@ -60,7 +60,7 @@ Because I am a huge fan of video games, difficult and competitive ones at that, 
 
 ## Interview Recording URL Link
 
-[https://www.loom.com/share/baf6fb66b19a4b53a872cbe6fc8bad2f]
+https://www.loom.com/share/9977353ab90b4dacabd4d653fc90298e
 
 
 ## License
